@@ -1,18 +1,20 @@
-congit add comments.js
+// Create web server
+// Create a web server that listens on port 3000 and serves the comments.html file. Use the comments.html file from the previous exercise.
+// The comments.html file should be served as a static file.
 
-// Cria o servidor web
+const http = require('http');
+const fs = require('fs');   // file system
+
 const server = http.createServer((req, res) => {
-  // Configura o cabeçalho da resposta
-  res.writeHead(200, { 'Content-Type': 'text/plain' });
-
-  // Responde com uma mensagem simples
-  res.end('Servidor web funcionando! Bem-vindo ao Comments.js\n');
-});
-
-// Define a porta do servidor
-const PORT = 3000;
-
-// Inicia o servidor
-server.listen(PORT, () => {
-  console.log(`Servidor rodando em http://localhost:${PORT}`);
-});
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    fs.readFile('./comments.html', (err, data) => {
+        if (err) {
+            console.log(err);
+            res.end();
+        } else {
+            res.write(data);
+            res.end();
+        }
+    });
+}
+);git add comments.js
